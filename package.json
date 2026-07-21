@@ -8,25 +8,28 @@
     "start": "next start",
     "lint": "eslint src",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md,json}\"",
-    "prepare": "husky"
-    
+    "prepare": "husky",
+    "type-check": "tsc --noEmit"
   },
   "lint-staged": {
-  "src/**/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ],
-  "src/**/*.{json,md,css}": [
+    "src/**/*.css": [
+      "prettier --write"
+    ],
+    "src/**/*.{json,md}": [
       "prettier --write"
     ]
   },
-
   "dependencies": {
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^16.2.10",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -36,7 +39,9 @@
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^17.1.0",
+    "prettier": "^3.9.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.65.0"
   }
 }
