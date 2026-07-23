@@ -1,26 +1,20 @@
 import NextAuth from 'next-auth';
-import GitHub from 'next-auth/providers/github';
+import { authConfig } from './auth.config';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  providers: [
-    GitHub({
-      clientId: process.env.AUTH_GITHUB_ID,
-      clientSecret: process.env.AUTH_GITHUB_SECRET,
-    }),
-  ],
+  ...authConfig, // 2. Распаковываем базовые настройки (провайдеры и authorized)
   session: {
     strategy: 'jwt',
   },
   callbacks: {
+    ...authConfig.callbacks, // 3. Наследуем базовые колбэки
     async jwt({ token, user }) {
-      // Когда пользователь заходит, прокидываем его id в JWT токен
       if (user) {
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // Переносим id из токена в объект сессии, чтобы он был доступен на фронте
       if (session.user && token.id) {
         session.user.id = token.id as string;
       }
