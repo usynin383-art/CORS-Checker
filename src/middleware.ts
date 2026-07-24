@@ -22,5 +22,5 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/api/scan/:path*'],
+  matcher: ['/api/scan/:path*'],
 };
